@@ -1,14 +1,18 @@
 import type { DaySolution, DayResult } from '../types'
-import { loadInput } from './inputLoader'
+import { loadInput, type InputVariant } from './inputLoader'
 
 /**
  * Exécute les solutions pour un jour donné
  */
-export async function runSolution(dayNumber: number, solution: DaySolution): Promise<DayResult> {
+export async function runSolution(
+  dayNumber: number,
+  solution: DaySolution,
+  inputVariant: InputVariant = 'main'
+): Promise<DayResult> {
   const startTime = performance.now()
 
   try {
-    const input = await loadInput(dayNumber)
+    const input = await loadInput(dayNumber, inputVariant)
     const part1Result = solution.part1(input.trim())
     const part2Result = solution.part2(input.trim())
 
@@ -26,4 +30,3 @@ export async function runSolution(dayNumber: number, solution: DaySolution): Pro
     throw error
   }
 }
-

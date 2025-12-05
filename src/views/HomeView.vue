@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { getAvailableDays } from '../utils/dayRegistry'
+
+const availableDays = ref<number[]>([])
+
+function checkAvailableDays() {
+  availableDays.value = getAvailableDays()
+}
+
+onMounted(() => {
+  checkAvailableDays()
+})
+</script>
+
 <template>
   <div class="home">
     <h2>Jours disponibles</h2>
@@ -14,21 +29,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getAvailableDays } from '../utils/dayRegistry'
-
-const availableDays = ref<number[]>([])
-
-function checkAvailableDays() {
-  availableDays.value = getAvailableDays()
-}
-
-onMounted(() => {
-  checkAvailableDays()
-})
-</script>
 
 <style scoped>
 .home {
@@ -75,4 +75,3 @@ h2 {
   font-size: 0.9rem;
 }
 </style>
-

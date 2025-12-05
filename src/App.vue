@@ -1,3 +1,6 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div id="app">
     <header>
@@ -11,9 +14,6 @@
     </main>
   </div>
 </template>
-
-<script setup lang="ts">
-</script>
 
 <style scoped>
 header {
@@ -52,4 +52,3 @@ main {
   padding: 2rem;
 }
 </style>
-
