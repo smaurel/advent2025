@@ -18,46 +18,25 @@ L'application sera accessible sur `http://localhost:5173`
 
 ## Structure
 
-- `src/days/` - Solutions organisées par jour (day01/, day02/, etc.)
-  - Chaque jour contient :
-    - `solution.ts` - Implémentation des solutions partie 1 et 2
-    - `input.txt` - Fichier d'input principal pour le jour
-    - `test.txt` (optionnel) - Fichier d'input de test pour le jour
-    - `README.md` - Documentation du problème
+- `src/days/` - Inputs et documentation pour chaque jour (day01/, day02/, etc.)
 
-- `src/views/` - Vues Vue pour afficher les résultats
-  - `src/views/days/` - Un composant de vue par jour (Day01View, Day04View, etc.)
-- `src/utils/` - Utilitaires (lecture de fichiers, exécution de solutions)
+  - `input.txt` - Fichier d'input principal pour le jour
+  - `test.txt` (optionnel) - Fichier d'input de test pour le jour
+  - `README.md` - Description du problème
+  - `DayXXView.vue` - Le composant contenant le code pour tourner le jour XX
+
+- `src/utils/` - Utilitaires (lecture de fichiers, gestion de la liste des jours disponibles)
 - `src/types/` - Types TypeScript
 
 ## Ajouter un nouveau jour
 
-1. Créer un nouveau dossier `src/days/dayXX/` (XX = numéro du jour avec zéro devant)
-2. Créer `solution.ts` avec la structure suivante :
-
-```typescript
-import type { DaySolution } from '../../types'
-
-const solution: DaySolution = {
-  dayNumber: XX,
-  part1: (input: string) => {
-    // Votre solution partie 1
-    return 'résultat'
-  },
-  part2: (input: string) => {
-    // Votre solution partie 2
-    return 'résultat'
-  }
-}
-
-export default solution
-```
-
-3. Ajouter le fichier `input.txt` avec votre input (et `test.txt` si vous voulez un input de test sélectionnable depuis l'UI)
-4. Enregistrer la solution dans `src/utils/dayRegistry.ts` :
-   - Importer la solution : `import dayXXSolution from '../days/dayXX/solution'`
-   - L'ajouter au registre : `XX: dayXXSolution,`
-5. Le jour apparaîtra automatiquement sur la page d'accueil
+1. Créer un dossier `src/days/dayXX/` (XX = numéro du jour avec zéro devant) avec :
+   - `input.txt` (obligatoire)
+   - `test.txt` (optionnel)
+   - `README.md` (description du puzzle)
+2. Créer `src/views/days/DayXXView.vue` en copiant une vue existante et en implémentant directement vos fonctions `solvePart1` et `solvePart2` dans le `<script setup>`.
+3. Ajouter la route correspondante dans `src/router/index.ts` (`/day/XX`).
+4. Ajouter le numéro du jour dans `src/utils/dayRegistry.ts` pour qu'il apparaisse sur la page d'accueil.
 
 ## Build
 

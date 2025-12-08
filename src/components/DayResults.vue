@@ -1,13 +1,24 @@
 <script setup lang="ts">
-import type { DayResult } from '../types'
+import type { DayResult } from "../types";
 
 defineProps<{
-  result: DayResult
-}>()
+  result: DayResult;
+}>();
+
+const emit = defineEmits<{
+  (e: "run"): void;
+}>();
+
+function runAgain() {
+  emit("run");
+}
 </script>
 
 <template>
   <div class="results">
+    <div class="actions">
+      <button type="button" class="run-btn" @click="runAgain">Relancer la solution</button>
+    </div>
     <div class="result-card">
       <h3>Partie 1</h3>
       <div class="result-value">{{ result.part1Result }}</div>
@@ -16,9 +27,7 @@ defineProps<{
       <h3>Partie 2</h3>
       <div class="result-value">{{ result.part2Result }}</div>
     </div>
-    <div class="execution-time">
-      Temps d'exécution: {{ result.executionTime.toFixed(2) }} ms
-    </div>
+    <div class="execution-time">Temps d'exécution: {{ result.executionTime.toFixed(2) }} ms</div>
   </div>
 </template>
 
@@ -28,6 +37,32 @@ defineProps<{
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin: 2rem 0;
+}
+
+.actions {
+  grid-column: 1 / -1;
+}
+
+.run-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.run-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.45);
+}
+
+.run-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.35);
 }
 
 .result-card {

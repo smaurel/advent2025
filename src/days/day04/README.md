@@ -43,4 +43,4 @@ Consider your complete diagram of the paper roll locations. How many rolls of pa
 
 ## Solution
 
-La solution est implémentée dans `solution.ts`. Vous pouvez utiliser `input.txt` pour y coller votre entrée personnelle et `test.txt` pour un jeu d'essai sélectionnable depuis l'interface.
+La solution est implémentée directement dans `src/views/days/Day04View.vue`. Vous pouvez utiliser `input.txt` pour y coller votre entrée personnelle et `test.txt` pour un jeu d'essai sélectionnable depuis l'interface.
