@@ -1,33 +1,31 @@
 <script setup lang="ts">
-import type { DayResult } from "../types";
+import type { Result } from "../types";
 
 defineProps<{
-  result: DayResult;
+  results: [Result, Result];
 }>();
 
 const emit = defineEmits<{
-  (e: "run"): void;
+  (e: "run", part: 1 | 2): void;
 }>();
 
-function runAgain() {
-  emit("run");
+function runPart(part: 1 | 2) {
+  emit("run", part);
 }
 </script>
 
 <template>
   <div class="results">
-    <div class="actions">
-      <button type="button" class="run-btn" @click="runAgain">Relancer la solution</button>
+    <div class="result-card" v-for="{ result, part, executionTime } in results" :key="part">
+      <div class="result-header">
+        <h3>Partie {{ part }}</h3>
+        <button type="button" class="run-btn-small" @click="runPart(part)" title="Relancer la partie {{ part }}">
+          ▶
+        </button>
+      </div>
+      <div class="result-value">{{ result }}</div>
+      <div class="execution-time-small">Temps: {{ executionTime.toFixed(2) }} ms</div>
     </div>
-    <div class="result-card">
-      <h3>Partie 1</h3>
-      <div class="result-value">{{ result.part1Result }}</div>
-    </div>
-    <div class="result-card">
-      <h3>Partie 2</h3>
-      <div class="result-value">{{ result.part2Result }}</div>
-    </div>
-    <div class="execution-time">Temps d'exécution: {{ result.executionTime.toFixed(2) }} ms</div>
   </div>
 </template>
 
@@ -39,32 +37,6 @@ function runAgain() {
   margin: 2rem 0;
 }
 
-.actions {
-  grid-column: 1 / -1;
-}
-
-.run-btn {
-  background: #667eea;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.65rem 1.1rem;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.35);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.run-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.45);
-}
-
-.run-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.35);
-}
-
 .result-card {
   background: white;
   border: 2px solid #e0e0e0;
@@ -73,10 +45,40 @@ function runAgain() {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .result-card h3 {
-  margin: 0 0 1rem 0;
+  margin: 0;
   color: #667eea;
   font-size: 1.2rem;
+}
+
+.run-btn-small {
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1;
+}
+
+.run-btn-small:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(102, 126, 234, 0.4);
+}
+
+.run-btn-small:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
 }
 
 .result-value {
@@ -86,13 +88,9 @@ function runAgain() {
   word-break: break-all;
 }
 
-.execution-time {
-  grid-column: 1 / -1;
-  text-align: center;
+.execution-time-small {
+  margin-top: 0.5rem;
   color: #666;
-  font-size: 0.9rem;
-  padding: 1rem;
-  background: #f9f9f9;
-  border-radius: 4px;
+  font-size: 0.85rem;
 }
 </style>
